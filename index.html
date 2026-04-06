@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استمارة طلب تأشيرة السياحة الكندية | Canada Visa Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#C8102E; --red-dark:#A00E24; --red-light:#FFF0F2;
+  --navy:#1B2A4A; --navy-light:#2D3E66;
+  --white:#FFFFFF; --bg:#F0F2F5; --border:#DDE1E9;
+  --text:#1A1F2E; --muted:#6B7280; --success:#059669;
+  --r:14px; --r-sm:8px;
+  --shadow:0 1px 4px rgba(0,0,0,.07),0 4px 20px rgba(0,0,0,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);direction:rtl;min-height:100vh}
+body.ltr{direction:ltr}
+
+/* LANG TOGGLE */
+.lang-toggle{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:5px 5px 5px 12px;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s;z-index:10}
+.lang-toggle:hover{background:rgba(255,255,255,.25)}
+.lang-toggle span{color:#fff;font-size:13px;font-weight:700;letter-spacing:.5px}
+.lang-pill{background:#fff;color:var(--navy);border-radius:99px;padding:3px 10px;font-size:12px;font-weight:800}
+
+/* HEADER */
+.site-header{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-light) 60%,#3A1A20 100%);padding:48px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.maple-icon{font-size:52px;display:block;margin-bottom:12px;filter:drop-shadow(0 4px 12px rgba(200,16,46,.5))}
+.site-header h1{font-size:clamp(22px,4vw,34px);font-weight:800;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.3)}
+.site-header p{color:rgba(255,255,255,.65);font-size:15px;margin-top:8px}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);font-size:13px;padding:6px 16px;border-radius:99px;margin-top:20px;backdrop-filter:blur(8px)}
+
+/* PROGRESS */
+.progress-wrap{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.progress-bar-track{height:3px;background:var(--border)}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),#C9913D);transition:width .4s ease;width:0%}
+.progress-steps{display:flex;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.progress-steps::-webkit-scrollbar{display:none}
+.step-tab{display:flex;align-items:center;gap:6px;padding:12px 16px;white-space:nowrap;font-size:13px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0}
+.step-tab.active{color:var(--red);border-bottom-color:var(--red)}
+.step-tab.done{color:var(--success)}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .2s}
+.step-tab.active .step-num{background:var(--red);color:#fff}
+.step-tab.done .step-num{background:var(--success);color:#fff}
+
+/* LAYOUT */
+.main{max-width:860px;margin:0 auto;padding:32px 16px 80px}
+
+/* CARDS */
+.card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;display:none}
+.card.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.card-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:18px 24px;display:flex;align-items:center;gap:12px}
+.card-header-icon{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.card-header h2{color:#fff;font-size:18px;font-weight:700}
+.card-body{padding:24px}
+
+/* FORM */
+.field-grid{display:grid;gap:16px}
+.fg2{grid-template-columns:1fr 1fr}
+.fg3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:600px){.fg2,.fg3{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600;color:var(--navy)}
+.field label .req{color:var(--red);margin-right:2px}
+.field input,.field select,.field textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:14px;color:var(--text);background:#FAFBFC;transition:border-color .2s,box-shadow .2s;direction:rtl;outline:none}
+body.ltr .field input,body.ltr .field select,body.ltr .field textarea{direction:ltr}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(200,16,46,.09)}
+.field textarea{resize:vertical;min-height:80px}
+.field select{appearance:none;cursor:pointer}
+
+/* RADIO */
+.radio-group{display:flex;flex-wrap:wrap;gap:10px}
+.radio-opt{display:flex;align-items:center;gap:7px;padding:9px 18px;border:1.5px solid var(--border);border-radius:99px;cursor:pointer;font-size:14px;font-weight:500;transition:all .18s;user-select:none;background:#FAFBFC}
+.radio-opt:hover{border-color:var(--red)}
+.radio-opt input{display:none}
+.radio-opt.selected{background:var(--red-light);border-color:var(--red);color:var(--red);font-weight:700}
+
+/* DYNAMIC BLOCKS */
+.dynamic-block{border:1.5px solid var(--border);border-radius:var(--r-sm);padding:18px;margin-bottom:12px;background:#FAFBFC}
+.dynamic-block-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.dynamic-block-title{font-size:14px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:6px}
+.btn-remove{background:none;border:none;cursor:pointer;color:#EF4444;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px;transition:background .2s}
+.btn-remove:hover{background:#FEE2E2}
+
+/* BUTTONS */
+.btn-add{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--r-sm);border:1.5px dashed var(--red);color:var(--red);background:var(--red-light);font-family:'Cairo',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-add:hover{background:#FFD6DC;border-style:solid}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;padding:20px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;box-shadow:0 4px 14px rgba(200,16,46,.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,16,46,.4)}
+.btn-secondary{background:var(--bg);color:var(--navy);border:1.5px solid var(--border)}
+.btn-secondary:hover{background:var(--border)}
+.btn-submit{background:linear-gradient(135deg,var(--success),#047857);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,.3);padding:14px 36px;font-size:16px}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(5,150,105,.4)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* CONDITIONAL */
+.conditional{display:none}
+.conditional.show{display:block;animation:fadeUp .25s ease}
+
+/* MISC */
+.divider{height:1px;background:var(--border);margin:20px 0}
+.sub-title{font-size:14px;font-weight:700;color:var(--red);margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.sub-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.hint{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:20px;padding:48px 40px;text-align:center;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.13);animation:popIn .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.modal-icon{font-size:56px;margin-bottom:16px}
+.modal h3{font-size:22px;font-weight:800;color:var(--success);margin-bottom:10px}
+.modal p{color:var(--muted);font-size:15px;line-height:1.7}
+.modal-close{margin-top:24px;padding:12px 32px;background:var(--success);color:#fff;border:none;border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;width:100%}
+
+/* LOADING */
+.loading-dots{display:inline-flex;gap:4px;align-items:center}
+.loading-dots span{width:6px;height:6px;border-radius:50%;background:currentColor;animation:bounce 1.2s infinite}
+.loading-dots span:nth-child(2){animation-delay:.2s}
+.loading-dots span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* Hide/show lang elements */
+.ar{display:block}.en{display:none}
+body.ltr .ar{display:none}
+body.ltr .en{display:block}
+span.ar,span.en,label.ar,label.en{display:inline}
+body.ltr span.ar,body.ltr label.ar{display:none}
+body.ltr span.en,body.ltr label.en{display:inline}
+</style>
+</head>
+<body id="bodyRoot">
+
+<header class="site-header">
+  <button class="lang-toggle" onclick="toggleLang()">
+    <span class="ar">EN</span><span class="en">عربي</span>
+    <div class="lang-pill ar">English</div>
+    <div class="lang-pill en">العربية</div>
+  </button>
+  <span class="maple-icon">🍁</span>
+  <h1 class="ar">استمارة طلب تأشيرة السياحة الكندية</h1>
+  <h1 class="en">Canada Tourism Visa Application</h1>
+  <p class="ar">يرجى تعبئة جميع الحقول المطلوبة بدقة</p>
+  <p class="en">Please fill in all required fields carefully</p>
+  <div class="header-badge">🔒 <span class="ar">بياناتك آمنة ومشفرة</span><span class="en">Your data is safe and encrypted</span></div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+  <div class="progress-steps" id="progressSteps"></div>
+</div>
+
+<main class="main">
+
+  <!-- STEP 1 -->
+  <div class="card active" data-step="1">
+    <div class="card-header"><div class="card-header-icon">👤</div><h2><span class="ar">المعلومات الشخصية</span><span class="en">Personal Information</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid fg2">
+        <div class="field"><label><span class="ar">الاسم بالكامل</span><span class="en">Full Name</span> <span class="req">*</span></label><input type="text" id="fullName" placeholder-ar="الاسم رباعي كما في الجواز" placeholder-en="Full name as in passport"></div>
+        <div class="field"><label><span class="ar">رقم الهاتف</span><span class="en">Phone Number</span> <span class="req">*</span></label><input type="tel" id="phone" placeholder="01xxxxxxxxx"></div>
+        <div class="field"><label><span class="ar">البريد الإلكتروني</span><span class="en">Email Address</span> <span class="req">*</span></label><input type="email" id="email" placeholder="example@email.com"></div>
+        <div class="field"><label><span class="ar">عنوان الإقامة الحالي</span><span class="en">Current Address</span> <span class="req">*</span></label><input type="text" id="address" placeholder-ar="المحافظة – الحي – الشارع" placeholder-en="City – District – Street"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="field-grid fg2">
+        <div class="field"><label><span class="ar">هل لديك هوية وطنية سارية؟</span><span class="en">Do you have a valid national ID?</span> <span class="req">*</span></label><div class="radio-group" data-field="hasNationalId"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">هل أنت مواطن لأكثر من بلد؟</span><span class="en">Are you a citizen of more than one country?</span> <span class="req">*</span></label><div class="radio-group" data-field="multiNational" data-toggle="multiNationalBlock"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      </div>
+      <div class="conditional" id="multiNationalBlock">
+        <div class="divider"></div>
+        <div class="field-grid fg2">
+          <div class="field"><label><span class="ar">البلد الإضافي</span><span class="en">Additional Country</span></label><input type="text" id="additionalCountry" placeholder-ar="اسم البلد" placeholder-en="Country name"></div>
+          <div class="field"><label><span class="ar">مواطن منذ الولادة؟</span><span class="en">Citizen since birth?</span></label><div class="radio-group" data-field="citizenSinceBirth" data-toggle="citizenDateBlock"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        </div>
+        <div class="conditional" id="citizenDateBlock" style="margin-top:12px">
+          <div class="field" style="max-width:300px"><label><span class="ar">منذ أي تاريخ؟</span><span class="en">Since when?</span></label><input type="text" id="citizenSinceDate" placeholder="01/2005"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="field-grid fg2">
+        <div class="field"><label><span class="ar">مقيم دائم في الولايات المتحدة؟</span><span class="en">Permanent US resident?</span> <span class="req">*</span></label><div class="radio-group" data-field="usResident"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">تأشيرة غير مهاجر للولايات المتحدة؟</span><span class="en">US non-immigrant visa?</span> <span class="req">*</span></label><div class="radio-group" data-field="usVisa"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">تأشيرة كندية في آخر 10 سنوات؟</span><span class="en">Canadian visa in last 10 years?</span> <span class="req">*</span></label><div class="radio-group" data-field="prevCanadianVisa"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">قدمت بيانات حيوية لكندا؟</span><span class="en">Provided biometrics for Canada?</span> <span class="req">*</span></label><div class="radio-group" data-field="biometrics" data-toggle="biometricsYearBlock"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      </div>
+      <div class="conditional" id="biometricsYearBlock" style="margin-top:12px">
+        <div class="field" style="max-width:250px"><label><span class="ar">العام</span><span class="en">Year</span></label><input type="text" id="biometricsYear" placeholder="2019"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="field"><label><span class="ar">جواز مختلف عن تأشيرة الولايات المتحدة؟</span><span class="en">Different passport from US visa?</span> <span class="req">*</span></label><div class="radio-group" data-field="differentPassport"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card" data-step="2">
+    <div class="card-header"><div class="card-header-icon">🏠</div><h2><span class="ar">الإقامة في دول أخرى – آخر ٥ سنوات</span><span class="en">Residence in Other Countries – Last 5 Years</span></h2></div>
+    <div class="card-body">
+      <div class="field" style="margin-bottom:16px"><label><span class="ar">خلال الخمس سنوات الماضية هل أقمت في بلد آخر غير بلد إقامتك الحالي أكثر من 6 شهور؟</span><span class="en">In the past five years, have you lived in a country other than your current country of residence for more than 6 months?</span> <span class="req">*</span></label><div class="radio-group" data-field="hadOtherResidency" data-toggle="residencyList"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      <div class="conditional" id="residencyList">
+        <div id="residencyContainer"></div>
+        <button class="btn-add" onclick="addResidency()">＋ <span class="ar">إضافة بلد</span><span class="en">Add Country</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="card" data-step="3">
+    <div class="card-header"><div class="card-header-icon">🎓</div><h2><span class="ar">التعليم</span><span class="en">Education</span></h2></div>
+    <div class="card-body">
+      <div id="educationContainer"></div>
+      <button class="btn-add" onclick="addEducation()">＋ <span class="ar">إضافة مؤهل تعليمي</span><span class="en">Add Qualification</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="card" data-step="4">
+    <div class="card-header"><div class="card-header-icon">🎖️</div><h2><span class="ar">الخدمة العسكرية</span><span class="en">Military Service</span></h2></div>
+    <div class="card-body">
+      <div class="field" style="margin-bottom:16px"><label><span class="ar">هل أديت الخدمة العسكرية؟</span><span class="en">Have you completed military service?</span> <span class="req">*</span></label><div class="radio-group" data-field="military" data-toggle="militaryDetails"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      <div class="conditional" id="militaryDetails">
+        <div class="field-grid fg2">
+          <div class="field"><label><span class="ar">محافظة الخدمة</span><span class="en">Service Governorate</span></label><input type="text" id="militaryGov"></div>
+          <div class="field"><label><span class="ar">السلاح</span><span class="en">Branch</span></label><input type="text" id="militaryBranch" placeholder-ar="مثال: المشاة" placeholder-en="e.g. Infantry"></div>
+          <div class="field"><label><span class="ar">الرتبة</span><span class="en">Rank</span></label><input type="text" id="militaryRank"></div>
+          <div class="field"><label><span class="ar">من – إلى</span><span class="en">From – To</span></label><input type="text" id="militaryDates" placeholder="MM/YYYY – MM/YYYY"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="card" data-step="5">
+    <div class="card-header"><div class="card-header-icon">💼</div><h2><span class="ar">التاريخ الوظيفي – آخر ١٠ سنوات</span><span class="en">Employment History – Last 10 Years</span></h2></div>
+    <div class="card-body">
+      <div id="employmentContainer"></div>
+      <button class="btn-add" onclick="addEmployment()">＋ <span class="ar">إضافة وظيفة</span><span class="en">Add Job</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="card" data-step="6">
+    <div class="card-header"><div class="card-header-icon">✈️</div><h2><span class="ar">سجل السفر – آخر ٥ سنوات</span><span class="en">Travel History – Last 5 Years</span></h2></div>
+    <div class="card-body">
+      <div class="field" style="margin-bottom:16px"><label><span class="ar">خلال الخمس سنوات الماضية هل سافرت إلى بلد آخر غير بلد جنسيتك أو البلد الذي تقيم فيه الآن؟</span><span class="en">In the past five years, have you traveled to a country other than your country of citizenship or current residence?</span> <span class="req">*</span></label><div class="radio-group" data-field="hasTravelHistory" data-toggle="travelList"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      <div class="conditional" id="travelList">
+        <div id="travelContainer"></div>
+        <button class="btn-add" onclick="addTravel()">＋ <span class="ar">إضافة رحلة</span><span class="en">Add Trip</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="card" data-step="7">
+    <div class="card-header"><div class="card-header-icon">👨‍👩‍👧</div><h2><span class="ar">معلومات الوالدين</span><span class="en">Parents Information</span></h2></div>
+    <div class="card-body">
+      <div class="sub-title"><span class="ar">معلومات الأب</span><span class="en">Father's Information</span></div>
+      <div class="field-grid fg2">
+        <div class="field"><label><span class="ar">الاسم</span><span class="en">Name</span> <span class="req">*</span></label><input type="text" id="fatherName"></div>
+        <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="fatherDOB" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">بلد الميلاد</span><span class="en">Country of Birth</span></label><input type="text" id="fatherCountry"></div>
+        <div class="field"><label><span class="ar">تاريخ الوفاة</span><span class="en">Date of Death</span></label><input type="text" id="fatherDeathDate" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">العمل الحالي</span><span class="en">Current Occupation</span></label><input type="text" id="fatherJob"></div>
+        <div class="field"><label><span class="ar">العنوان الحالي</span><span class="en">Current Address</span></label><input type="text" id="fatherAddress"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title"><span class="ar">معلومات الأم</span><span class="en">Mother's Information</span></div>
+      <div class="field-grid fg2">
+        <div class="field"><label><span class="ar">الاسم</span><span class="en">Name</span> <span class="req">*</span></label><input type="text" id="motherName"></div>
+        <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="motherDOB" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">بلد الميلاد</span><span class="en">Country of Birth</span></label><input type="text" id="motherCountry"></div>
+        <div class="field"><label><span class="ar">تاريخ الوفاة</span><span class="en">Date of Death</span></label><input type="text" id="motherDeathDate" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">العمل الحالي</span><span class="en">Current Occupation</span></label><input type="text" id="motherJob"></div>
+        <div class="field"><label><span class="ar">العنوان الحالي</span><span class="en">Current Address</span></label><input type="text" id="motherAddress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="card" data-step="8">
+    <div class="card-header"><div class="card-header-icon">💍</div><h2><span class="ar">الحالة الاجتماعية والأبناء</span><span class="en">Marital Status & Children</span></h2></div>
+    <div class="card-body">
+      <div class="field" style="margin-bottom:20px"><label><span class="ar">الحالة الاجتماعية</span><span class="en">Marital Status</span> <span class="req">*</span></label>
+        <div class="radio-group" data-field="maritalStatus" data-toggle-multi='{"متزوج":"spouseBlock","مطلق":"divorcedBlock","أرمل":"widowedBlock"}'>
+          <label class="radio-opt"><input type="radio" value="أعزب"> <span class="ar">أعزب</span><span class="en">Single</span></label>
+          <label class="radio-opt"><input type="radio" value="متزوج"> <span class="ar">متزوج</span><span class="en">Married</span></label>
+          <label class="radio-opt"><input type="radio" value="مطلق"> <span class="ar">مطلق</span><span class="en">Divorced</span></label>
+          <label class="radio-opt"><input type="radio" value="أرمل"> <span class="ar">أرمل</span><span class="en">Widowed</span></label>
+        </div>
+      </div>
+      <div class="conditional" id="spouseBlock">
+        <div class="sub-title"><span class="ar">معلومات الزوج / الزوجة</span><span class="en">Spouse Information</span></div>
+        <div class="field-grid fg2">
+          <div class="field"><label><span class="ar">الاسم الكامل</span><span class="en">Full Name</span></label><input type="text" id="spouseName"></div>
+          <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="spouseDOB" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">تاريخ الزواج</span><span class="en">Marriage Date</span></label><input type="text" id="marriageDate" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">محافظة الميلاد</span><span class="en">Birth Governorate</span></label><input type="text" id="spouseBirthGov"></div>
+          <div class="field"><label><span class="ar">العمل الحالي</span><span class="en">Current Occupation</span></label><input type="text" id="spouseJob"></div>
+        </div>
+      </div>
+      <div class="conditional" id="divorcedBlock">
+        <div class="sub-title"><span class="ar">معلومات الزوج / الزوجة السابق</span><span class="en">Ex-Spouse Information</span></div>
+        <div class="field-grid fg2">
+          <div class="field"><label><span class="ar">الاسم الكامل</span><span class="en">Full Name</span></label><input type="text" id="exSpouseName"></div>
+          <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="exSpouseDOB" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">تاريخ الزواج</span><span class="en">Marriage Date</span></label><input type="text" id="exMarriageDate" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">تاريخ الطلاق</span><span class="en">Divorce Date</span></label><input type="text" id="divorceDate" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">محافظة الميلاد</span><span class="en">Birth Governorate</span></label><input type="text" id="exSpouseBirthGov"></div>
+          <div class="field"><label><span class="ar">العمل الحالي</span><span class="en">Current Occupation</span></label><input type="text" id="exSpouseJob"></div>
+        </div>
+      </div>
+      <div class="conditional" id="widowedBlock">
+        <div class="sub-title"><span class="ar">معلومات الزوج / الزوجة المتوفى</span><span class="en">Deceased Spouse Information</span></div>
+        <div class="field-grid fg2">
+          <div class="field"><label><span class="ar">الاسم الكامل</span><span class="en">Full Name</span></label><input type="text" id="deceasedSpouseName"></div>
+          <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="deceasedSpouseDOB" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">تاريخ الوفاة</span><span class="en">Date of Death</span></label><input type="text" id="deceasedSpouseDeathDate" placeholder="DD/MM/YYYY"></div>
+          <div class="field"><label><span class="ar">محافظة الميلاد</span><span class="en">Birth Governorate</span></label><input type="text" id="deceasedSpouseBirthGov"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title"><span class="ar">الأبناء</span><span class="en">Children</span></div>
+      <div id="childrenContainer"></div>
+      <button class="btn-add" onclick="addChild()">＋ <span class="ar">إضافة ابن / ابنة</span><span class="en">Add Child</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 9 -->
+  <div class="card" data-step="9">
+    <div class="card-header"><div class="card-header-icon">📋</div><h2><span class="ar">سجل التأشيرات</span><span class="en">Visa History</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">هل تم رفضك في أي سفارة؟</span><span class="en">Have you been refused a visa by any country?</span> <span class="req">*</span></label><div class="radio-group" data-field="wasRejected" data-toggle="rejectionBlock"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="conditional" id="rejectionBlock">
+          <div class="field"><label><span class="ar">اسم البلد والسبب</span><span class="en">Country name and reason</span></label><textarea id="previousRejection" placeholder-ar="اذكر اسم البلد وسبب الرفض..." placeholder-en="State the country and reason for refusal..."></textarea></div>
+        </div>
+        <div class="field"><label><span class="ar">هل تقدمت على تأشيرة كندا قبل ذلك؟</span><span class="en">Have you previously applied for a Canadian visa?</span> <span class="req">*</span></label><div class="radio-group" data-field="appliedBefore" data-toggle="prevApplicationBlock"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="conditional" id="prevApplicationBlock">
+          <div class="field-grid fg2">
+            <div class="field"><label><span class="ar">تاريخ التقديم</span><span class="en">Application Date</span></label><input type="text" id="previousApplicationDate" placeholder="MM/YYYY"></div>
+            <div class="field"><label><span class="ar">النتيجة</span><span class="en">Result</span></label><div class="radio-group" data-field="previousApplicationResult"><label class="radio-opt"><input type="radio" value="تمت الموافقة"> <span class="ar">موافقة</span><span class="en">Approved</span></label><label class="radio-opt"><input type="radio" value="تم الرفض"> <span class="ar">رفض</span><span class="en">Refused</span></label><label class="radio-opt"><input type="radio" value="قيد المعالجة"> <span class="ar">معالجة</span><span class="en">Processing</span></label></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div style="text-align:center">
+        <button class="btn btn-submit" id="submitBtn" onclick="submitForm()">
+          <span id="submitText">📨 <span class="ar">إرسال الطلب</span><span class="en">Submit Application</span></span>
+        </button>
+        <p class="hint" style="margin-top:12px"><span class="ar">سيتم إرسال بياناتك بصيغة Word إلى المسؤول فور الإرسال</span><span class="en">Your data will be sent as a Word document to the administrator upon submission</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav-btns" id="navBtns">
+    <button class="btn btn-secondary" id="btnPrev" onclick="prevStep()" style="display:none">← <span class="ar">السابق</span><span class="en">Previous</span></button>
+    <div></div>
+    <button class="btn btn-primary" id="btnNext" onclick="nextStep()"><span class="ar">التالي</span><span class="en">Next</span> →</button>
+  </div>
+</main>
+
+<!-- SUCCESS MODAL -->
+<div class="overlay" id="successOverlay">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <h3><span class="ar">تم إرسال طلبك بنجاح!</span><span class="en">Application Submitted!</span></h3>
+    <p><span class="ar">تلقى المسؤول بياناتك كاملةً في ملف Word منظم.<br>سيتم التواصل معك قريباً.</span><span class="en">The administrator has received your data in a formatted Word file.<br>You will be contacted soon.</span></p>
+    <button class="modal-close" onclick="location.reload()"><span class="ar">إغلاق</span><span class="en">Close</span></button>
+  </div>
+</div>
+
+<script>
+const BACKEND = "https://visa-form-backend.vercel.app";
+
+// ── LANGUAGE ──
+let currentLang = 'ar';
+function toggleLang(){
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  const html = document.getElementById('htmlRoot');
+  const body = document.getElementById('bodyRoot');
+  if(currentLang === 'en'){
+    html.setAttribute('lang','en');
+    html.setAttribute('dir','ltr');
+    body.classList.add('ltr');
+  } else {
+    html.setAttribute('lang','ar');
+    html.setAttribute('dir','rtl');
+    body.classList.remove('ltr');
+  }
+  // Update placeholders
+  document.querySelectorAll('[placeholder-ar],[placeholder-en]').forEach(el=>{
+    const ph = currentLang==='en' ? el.getAttribute('placeholder-en') : el.getAttribute('placeholder-ar');
+    if(ph) el.placeholder = ph;
+  });
+  // Rebuild tabs
+  buildTabs();
+  updateProgress();
+}
+
+// ── STEPS ──
+const STEPS_AR = ["المعلومات الشخصية","الإقامة السابقة","التعليم","الخدمة العسكرية","التاريخ الوظيفي","سجل السفر","الوالدين","الحالة الاجتماعية","سجل التأشيرات"];
+const STEPS_EN = ["Personal Info","Previous Residence","Education","Military","Employment","Travel","Parents","Marital Status","Visa History"];
+let currentStep = 1;
+
+function buildTabs(){
+  const labels = currentLang==='ar' ? STEPS_AR : STEPS_EN;
+  const stepsEl = document.getElementById("progressSteps");
+  stepsEl.innerHTML = labels.map((s,i)=>`
+    <div class="step-tab ${i===0?'active':''}" id="tab${i+1}" onclick="goToStep(${i+1})">
+      <div class="step-num">${i+1}</div>${s}
+    </div>`).join("");
+}
+
+function updateProgress(){
+  document.getElementById("progressFill").style.width=((currentStep-1)/(STEPS_AR.length-1)*100)+"%";
+  STEPS_AR.forEach((_,i)=>{
+    const t=document.getElementById(`tab${i+1}`);
+    if(!t)return;
+    t.className="step-tab"+(i+1===currentStep?" active":i+1<currentStep?" done":"");
+    t.querySelector(".step-num").textContent=i+1<currentStep?"✓":i+1;
+  });
+  document.getElementById("btnPrev").style.display=currentStep>1?"inline-flex":"none";
+  document.getElementById("btnNext").style.display=currentStep<STEPS_AR.length?"inline-flex":"none";
+}
+
+function goToStep(n){
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+  document.querySelector(`.card[data-step="${n}"]`).classList.add("active");
+  currentStep=n; updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function nextStep(){if(currentStep<STEPS_AR.length)goToStep(currentStep+1)}
+function prevStep(){if(currentStep>1)goToStep(currentStep-1)}
+
+// ── RADIO ──
+const radioValues={};
+document.addEventListener("click",e=>{
+  const opt=e.target.closest(".radio-opt");
+  if(!opt)return;
+  const group=opt.closest(".radio-group");
+  if(!group)return;
+  group.querySelectorAll(".radio-opt").forEach(o=>o.classList.remove("selected"));
+  opt.classList.add("selected");
+  const field=group.dataset.field;
+  const value=opt.querySelector("input").value;
+  radioValues[field]=value;
+  const toggle=group.dataset.toggle;
+  if(toggle){const el=document.getElementById(toggle);if(el)el.classList.toggle("show",value==="نعم")}
+  const multiRaw=group.dataset.toggleMulti;
+  if(multiRaw){
+    const map=JSON.parse(multiRaw);
+    Object.values(map).forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove("show")});
+    if(map[value]){const el=document.getElementById(map[value]);if(el)el.classList.add("show")}
+  }
+});
+
+// ── DYNAMIC BLOCKS ──
+let rCnt=0,eCnt=0,jCnt=0,tCnt=0,cCnt=0;
+
+const M = {
+  ar:{country:"اسم البلد",status:"الحالة",statusOpts:["مواطن","مقيم","مهاجر","أخرى"],statusPlaceholder:"اختر...",fromDate:"من تاريخ",toDate:"إلى تاريخ",day:"اليوم",month:"الشهر",year:"السنة",months:["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],residence:"إقامة",degree:"المؤهل التعليمي",degreePh:"مثال: بكالوريوس هندسة",institution:"المؤسسة التعليمية",grad:"تاريخ التخرج",major:"التخصص",instAddr:"عنوان المؤسسة",instAddrPh:"المدينة – البلد",qualification:"مؤهل",currentJob:"الوظيفة الحالية",jobTitle:"المسمى الوظيفي",company:"اسم الشركة",companyAddr:"عنوان الشركة",startDate:"تاريخ البداية",endDate:"تاريخ النهاية",datePh:"شهر/سنة",job:"وظيفة",trip:"رحلة",tripCountry:"البلد",city:"المدينة",purpose:"غرض الزيارة",entry:"تاريخ الدخول",exit:"تاريخ الخروج",childName:"الاسم",childDob:"تاريخ الميلاد",childGov:"محافظة الميلاد",child:"ابن/ابنة"},
+  en:{country:"Country",status:"Status",statusOpts:["Citizen","Resident","Immigrant","Other"],statusPlaceholder:"Select...",fromDate:"From Date",toDate:"To Date",day:"Day",month:"Month",year:"Year",months:["January","February","March","April","May","June","July","August","September","October","November","December"],residence:"Residence",degree:"Degree",degreePh:"e.g. Bachelor of Engineering",institution:"Institution",grad:"Graduation Date",major:"Major",instAddr:"Institution Address",instAddrPh:"City – Country",qualification:"Qualification",currentJob:"Current Job",jobTitle:"Job Title",company:"Company Name",companyAddr:"Company Address",startDate:"Start Date",endDate:"End Date",datePh:"MM/YYYY",job:"Job",trip:"Trip",tripCountry:"Country",city:"City",purpose:"Purpose of Visit",entry:"Entry Date",exit:"Exit Date",childName:"Name",childDob:"Date of Birth",childGov:"Birth Governorate",child:"Child"}
+};
+
+function t(key){return M[currentLang][key];}
+
+function addResidency(){rCnt++;
+  const d=document.createElement("div");d.className="dynamic-block";d.id=`res_${rCnt}`;
+  const monthOpts = M[currentLang].months.map(m=>`<option>${m}</option>`).join('');
+  d.innerHTML=`<div class="dynamic-block-header"><div class="dynamic-block-title">🏠 ${t('residence')} ${rCnt}</div><button class="btn-remove" onclick="removeBlock('res_${rCnt}')">✕</button></div>
+  <div class="field-grid fg2">
+    <div class="field"><label>${t('country')}</label><input type="text" name="res_country_${rCnt}"></div>
+    <div class="field"><label>${t('status')}</label><select name="res_status_${rCnt}"><option value="">${t('statusPlaceholder')}</option>${t('statusOpts').map(o=>`<option>${o}</option>`).join('')}</select></div>
+  </div>
+  <div class="field-grid fg2" style="margin-top:10px">
+    <div class="field"><label>${t('fromDate')}</label><div style="display:flex;gap:6px">
+      <input type="number" name="res_from_day_${rCnt}" placeholder="${t('day')}" min="1" max="31" style="width:70px;text-align:center">
+      <select name="res_from_month_${rCnt}" style="flex:1"><option value="">${t('month')}</option>${monthOpts}</select>
+      <input type="number" name="res_from_year_${rCnt}" placeholder="${t('year')}" min="1900" max="2100" style="width:90px;text-align:center">
+    </div></div>
+    <div class="field"><label>${t('toDate')}</label><div style="display:flex;gap:6px">
+      <input type="number" name="res_to_day_${rCnt}" placeholder="${t('day')}" min="1" max="31" style="width:70px;text-align:center">
+      <select name="res_to_month_${rCnt}" style="flex:1"><option value="">${t('month')}</option>${monthOpts}</select>
+      <input type="number" name="res_to_year_${rCnt}" placeholder="${t('year')}" min="1900" max="2100" style="width:90px;text-align:center">
+    </div></div>
+  </div>`;
+  document.getElementById("residencyContainer").appendChild(d);}
+
+function addEducation(){eCnt++;
+  const d=document.createElement("div");d.className="dynamic-block";d.id=`edu_${eCnt}`;
+  d.innerHTML=`<div class="dynamic-block-header"><div class="dynamic-block-title">🎓 ${t('qualification')} ${eCnt}</div><button class="btn-remove" onclick="removeBlock('edu_${eCnt}')">✕</button></div>
+  <div class="field-grid fg2">
+    <div class="field"><label>${t('degree')}</label><input type="text" name="edu_degree_${eCnt}" placeholder="${t('degreePh')}"></div>
+    <div class="field"><label>${t('institution')}</label><input type="text" name="edu_institution_${eCnt}"></div>
+    <div class="field"><label>${t('grad')}</label><input type="text" name="edu_grad_${eCnt}" placeholder="${t('datePh')}"></div>
+    <div class="field"><label>${t('major')}</label><input type="text" name="edu_major_${eCnt}"></div>
+    <div class="field" style="grid-column:1/-1"><label>${t('instAddr')}</label><input type="text" name="edu_addr_${eCnt}" placeholder="${t('instAddrPh')}"></div>
+  </div>`;
+  document.getElementById("educationContainer").appendChild(d);}
+
+function addEmployment(){jCnt++;
+  const isFirst = jCnt === 1;
+  const title = isFirst ? t('currentJob') : `${t('job')} ${jCnt}`;
+  const d=document.createElement("div");d.className="dynamic-block";d.id=`job_${jCnt}`;
+  const removeBtn = isFirst ? "" : `<button class="btn-remove" onclick="removeBlock('job_${jCnt}')">✕</button>`;
+  const endDateField = isFirst ? "" : `<div class="field"><label>${t('endDate')}</label><input type="text" name="job_end_${jCnt}" placeholder="${t('datePh')}"></div>`;
+  d.innerHTML=`<div class="dynamic-block-header"><div class="dynamic-block-title">💼 ${title}</div>${removeBtn}</div>
+  <div class="field-grid fg2">
+    <div class="field"><label>${t('jobTitle')}</label><input type="text" name="job_title_${jCnt}"></div>
+    <div class="field"><label>${t('company')}</label><input type="text" name="job_company_${jCnt}"></div>
+    <div class="field" style="grid-column:1/-1"><label>${t('companyAddr')}</label><input type="text" name="job_addr_${jCnt}"></div>
+    <div class="field"><label>${t('startDate')}</label><input type="text" name="job_start_${jCnt}" placeholder="${t('datePh')}"></div>${endDateField}
+  </div>`;
+  document.getElementById("employmentContainer").appendChild(d);}
+
+function addTravel(){tCnt++;
+  const d=document.createElement("div");d.className="dynamic-block";d.id=`trv_${tCnt}`;
+  d.innerHTML=`<div class="dynamic-block-header"><div class="dynamic-block-title">✈️ ${t('trip')} ${tCnt}</div><button class="btn-remove" onclick="removeBlock('trv_${tCnt}')">✕</button></div>
+  <div class="field-grid fg3">
+    <div class="field"><label>${t('tripCountry')}</label><input type="text" name="trv_country_${tCnt}"></div>
+    <div class="field"><label>${t('city')}</label><input type="text" name="trv_city_${tCnt}"></div>
+    <div class="field"><label>${t('purpose')}</label><input type="text" name="trv_purpose_${tCnt}"></div>
+    <div class="field"><label>${t('entry')}</label><input type="text" name="trv_entry_${tCnt}" placeholder="${t('datePh')}"></div>
+    <div class="field"><label>${t('exit')}</label><input type="text" name="trv_exit_${tCnt}" placeholder="${t('datePh')}"></div>
+  </div>`;
+  document.getElementById("travelContainer").appendChild(d);}
+
+function addChild(){cCnt++;
+  const d=document.createElement("div");d.className="dynamic-block";d.id=`child_${cCnt}`;
+  d.innerHTML=`<div class="dynamic-block-header"><div class="dynamic-block-title">👶 ${t('child')} ${cCnt}</div><button class="btn-remove" onclick="removeBlock('child_${cCnt}')">✕</button></div>
+  <div class="field-grid fg3">
+    <div class="field"><label>${t('childName')}</label><input type="text" name="child_name_${cCnt}"></div>
+    <div class="field"><label>${t('childDob')}</label><input type="text" name="child_dob_${cCnt}" placeholder="DD/MM/YYYY"></div>
+    <div class="field"><label>${t('childGov')}</label><input type="text" name="child_gov_${cCnt}"></div>
+  </div>`;
+  document.getElementById("childrenContainer").appendChild(d);}
+
+function removeBlock(id){const el=document.getElementById(id);if(el)el.remove()}
+
+function collectDyn(prefix,fields,count){
+  const arr=[];
+  for(let i=1;i<=count;i++){
+    const el=document.getElementById(`${prefix}_${i}`);if(!el)continue;
+    const obj={};
+    fields.forEach(f=>{const inp=el.querySelector(`[name="${prefix}_${f}_${i}"]`);if(inp)obj[f]=inp.value});
+    arr.push(obj);
+  }
+  return arr;
+}
+const v=id=>{const el=document.getElementById(id);return el?el.value:""};
+
+function collectForm(){
+  return{
+    fullName:v("fullName"),phone:v("phone"),email:v("email"),address:v("address"),
+    hasNationalId:radioValues.hasNationalId,multiNational:radioValues.multiNational,
+    additionalCountry:v("additionalCountry"),citizenSinceBirth:radioValues.citizenSinceBirth,
+    citizenSinceDate:v("citizenSinceDate"),usResident:radioValues.usResident,usVisa:radioValues.usVisa,
+    prevCanadianVisa:radioValues.prevCanadianVisa,biometrics:radioValues.biometrics,
+    biometricsYear:v("biometricsYear"),differentPassport:radioValues.differentPassport,
+    hadOtherResidency:radioValues.hadOtherResidency,
+    otherResidency:collectDyn("res",["country","status","from_day","from_month","from_year","to_day","to_month","to_year"],rCnt),
+    education:collectDyn("edu",["degree","institution","grad","major","addr"],eCnt).map(e=>({degree:e.degree,institution:e.institution,graduationDate:e.grad,major:e.major,institutionAddress:e.addr})),
+    military:radioValues.military,militaryGov:v("militaryGov"),militaryBranch:v("militaryBranch"),militaryRank:v("militaryRank"),militaryDates:v("militaryDates"),
+    employment:collectDyn("job",["title","company","addr","start","end"],jCnt).map(j=>({title:j.title,company:j.company,companyAddress:j.addr,startDate:j.start,endDate:j.end})),
+    hasTravelHistory:radioValues.hasTravelHistory,
+    travel:collectDyn("trv",["country","city","purpose","entry","exit"],tCnt),
+    fatherName:v("fatherName"),fatherDOB:v("fatherDOB"),fatherCountry:v("fatherCountry"),fatherDeathDate:v("fatherDeathDate"),fatherJob:v("fatherJob"),fatherAddress:v("fatherAddress"),
+    motherName:v("motherName"),motherDOB:v("motherDOB"),motherCountry:v("motherCountry"),motherDeathDate:v("motherDeathDate"),motherJob:v("motherJob"),motherAddress:v("motherAddress"),
+    maritalStatus:radioValues.maritalStatus,
+    spouseName:v("spouseName"),spouseDOB:v("spouseDOB"),marriageDate:v("marriageDate"),spouseBirthGov:v("spouseBirthGov"),spouseJob:v("spouseJob"),
+    exSpouseName:v("exSpouseName"),exSpouseDOB:v("exSpouseDOB"),exMarriageDate:v("exMarriageDate"),divorceDate:v("divorceDate"),exSpouseBirthGov:v("exSpouseBirthGov"),exSpouseJob:v("exSpouseJob"),
+    deceasedSpouseName:v("deceasedSpouseName"),deceasedSpouseDOB:v("deceasedSpouseDOB"),deceasedSpouseDeathDate:v("deceasedSpouseDeathDate"),deceasedSpouseBirthGov:v("deceasedSpouseBirthGov"),
+    children:collectDyn("child",["name","dob","gov"],cCnt).map(c=>({name:c.name,dob:c.dob,birthGov:c.gov})),
+    wasRejected:radioValues.wasRejected,previousRejection:v("previousRejection"),
+    appliedBefore:radioValues.appliedBefore,previousApplicationDate:v("previousApplicationDate"),previousApplicationResult:radioValues.previousApplicationResult
+  };
+}
+
+async function submitForm(){
+  const btn=document.getElementById("submitBtn");
+  btn.disabled=true;
+  try{
+    const res=await fetch(`${BACKEND}/api/submit`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(collectForm())});
+    const json=await res.json();
+    if(json.success){document.getElementById("successOverlay").classList.add("show")}
+    else{alert((currentLang==='ar'?"خطأ: ":"Error: ")+json.message)}
+  }catch(err){
+    alert(currentLang==='ar'?"تعذر الاتصال بالخادم.":"Could not connect to server.");
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  buildTabs();
+  updateProgress();
+  // Set initial placeholders
+  document.querySelectorAll('[placeholder-ar]').forEach(el=>{
+    el.placeholder = el.getAttribute('placeholder-ar');
+  });
+  addEmployment();
+});
+</script>
+</body>
+</html>
