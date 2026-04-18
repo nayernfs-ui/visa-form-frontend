@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استمارة طلب تأشيرة كندا</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2D3E66;--red:#C8102E;--green:#059669;--bg:#F0F2F5;--white:#fff;--border:#DDE1E9;--text:#1A1F2E;--muted:#6B7280;--shadow:0 1px 4px rgba(0,0,0,.07),0 4px 20px rgba(0,0,0,.06);--r:12px;--r-sm:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body.ltr{direction:ltr}
+.header{background:linear-gradient(135deg,#111e35,var(--navy));padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 2px 12px rgba(0,0,0,.15);position:sticky;top:0;z-index:100}
+.header-brand{display:flex;align-items:center;gap:10px;color:#fff;font-size:18px;font-weight:800}
+.btn-lang{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:6px 14px;border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+main{max-width:820px;margin:0 auto;padding:24px 16px 80px}
+.progress-bar{background:#fff;border-radius:var(--r);padding:16px 20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.progress-steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.step-tab{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;border:1.5px solid var(--border);color:var(--muted)}
+.step-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.step-tab.done{background:var(--green);color:#fff;border-color:var(--green)}
+.step-num{width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.progress-track{height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--navy));border-radius:99px;transition:width .4s}
+.card{display:none;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:16px}
+.card.active{display:block}
+.card-header{display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--border)}
+.card-header-icon{font-size:28px}
+.card-header h2{font-size:18px;font-weight:800;color:var(--navy)}
+.card-body{padding:24px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:700;color:var(--text)}
+.req{color:var(--red)}
+.field input,.field select,.field textarea{padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:14px;outline:none;transition:border-color .2s;background:#fff;color:var(--text)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy)}
+.field textarea{resize:vertical;min-height:80px}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap}
+.radio-opt{display:flex;align-items:center;gap:6px;padding:8px 16px;border:1.5px solid var(--border);border-radius:var(--r-sm);cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
+.radio-opt.selected{border-color:var(--navy);background:#EEF2FF;color:var(--navy)}
+.radio-opt input{display:none}
+.divider{height:1px;background:var(--border);margin:20px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;box-shadow:0 4px 14px rgba(27,42,74,.3)}
+.btn-secondary{background:#fff;color:var(--navy);border:1.5px solid var(--border)}
+.btn-submit{background:linear-gradient(135deg,var(--green),#047857);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,.3);padding:14px 36px;font-size:16px}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed}
+.hint{font-size:12px;color:var(--muted)}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:20px;padding:40px;text-align:center;max-width:400px;width:90%}
+.modal-icon{font-size:48px;margin-bottom:16px}
+.modal h3{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.modal p{color:var(--muted);font-size:14px;margin-bottom:24px}
+.modal-close{background:var(--navy);color:#fff;border:none;padding:10px 28px;border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:600px){.field-grid{grid-template-columns:1fr}.progress-steps{display:none}}
+</style>
+</head>
+<body id="bodyRoot">
+<header class="header">
+  <div class="header-brand">🍁 استمارة التأشيرة الكندية</div>
+  <button class="btn-lang" onclick="toggleLang()"><span class="ar">EN 🌐</span><span class="en">عربي 🌐</span></button>
+</header>
+<main>
+  <div class="progress-bar">
+    <div class="progress-steps" id="progressSteps"></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="card" data-step="1">
+    <div class="card-header"><div class="card-header-icon">👤</div><h2><span class="ar">المعلومات الشخصية</span><span class="en">Personal Information</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">الاسم بالكامل</span><span class="en">Full Name</span> <span class="req">*</span></label><input type="text" id="q1"></div>
+        <div class="field"><label><span class="ar">رقم الهاتف</span><span class="en">Phone Number</span> <span class="req">*</span></label><input type="text" id="q2"></div>
+        <div class="field"><label><span class="ar">البريد الإلكتروني</span><span class="en">Email Address</span> <span class="req">*</span></label><input type="text" id="q3"></div>
+        <div class="field"><label><span class="ar">عنوان الإقامة الحالي</span><span class="en">Current Address</span> <span class="req">*</span></label><input type="text" id="q4"></div>
+        <div class="field"><label><span class="ar">هل لديك هوية وطنية سارية؟</span><span class="en">Do you have a valid national ID?</span> <span class="req">*</span></label><div class="radio-group" data-field="q5"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">هل أنت مواطن لأكثر من بلد؟</span><span class="en">Are you a citizen of more than one country?</span> <span class="req">*</span></label><div class="radio-group" data-field="q6"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">البلد الإضافي</span><span class="en">Additional Country</span></label><input type="text" id="q7"></div>
+        <div class="field"><label><span class="ar">مواطن منذ الولادة؟</span><span class="en">Citizen since birth?</span></label><div class="radio-group" data-field="q8"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">منذ أي تاريخ؟</span><span class="en">Since when?</span></label><input type="text" id="q9" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">مقيم دائم في الولايات المتحدة؟</span><span class="en">Permanent US resident?</span> <span class="req">*</span></label><div class="radio-group" data-field="q10"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">تأشيرة غير مهاجر للولايات المتحدة؟</span><span class="en">US non-immigrant visa?</span> <span class="req">*</span></label><div class="radio-group" data-field="q11"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">تأشيرة كندية في آخر 10 سنوات؟</span><span class="en">Canadian visa in last 10 years?</span> <span class="req">*</span></label><div class="radio-group" data-field="q12"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">قدمت بيانات حيوية لكندا؟</span><span class="en">Provided biometrics for Canada?</span> <span class="req">*</span></label><div class="radio-group" data-field="q13"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">العام</span><span class="en">Year</span></label><input type="text" id="q14"></div>
+        <div class="field"><label><span class="ar">جواز مختلف عن تأشيرة الولايات المتحدة؟</span><span class="en">Different passport from US visa?</span> <span class="req">*</span></label><div class="radio-group" data-field="q15"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 2 -->
+  <div class="card" data-step="2">
+    <div class="card-header"><div class="card-header-icon">🏠</div><h2><span class="ar">الإقامة في دول أخرى – آخر ٥ سنوات</span><span class="en">Residence in Other Countries – Last 5 Years</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">undefined</span><span class="en">undefined</span></label><input type="text" id="q17" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">undefined</span><span class="en">undefined</span></label><div class="radio-group" data-field="q16"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 3 -->
+  <div class="card" data-step="3">
+    <div class="card-header"><div class="card-header-icon">🎓</div><h2><span class="ar">التعليم</span><span class="en">Education</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">المؤهل الدراسي</span><span class="en">Educational Qualification</span></label><select id="q18"><option value=""></option></select></div>
+        <div class="field"><label><span class="ar">اسم المؤسسة التعليمية</span><span class="en">Institution Name</span></label><input type="text" id="q19"></div>
+        <div class="field"><label><span class="ar">من – إلى</span><span class="en">From – To</span></label><input type="text" id="q20"></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 4 -->
+  <div class="card" data-step="4">
+    <div class="card-header"><div class="card-header-icon">🎖️</div><h2><span class="ar">الخدمة العسكرية</span><span class="en">Military Service</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">هل أديت الخدمة العسكرية؟</span><span class="en">Have you completed military service?</span> <span class="req">*</span></label><div class="radio-group" data-field="q21"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">محافظة الخدمة</span><span class="en">Service Governorate</span></label><input type="text" id="q22"></div>
+        <div class="field"><label><span class="ar">السلاح</span><span class="en">Branch</span></label><input type="text" id="q23"></div>
+        <div class="field"><label><span class="ar">الرتبة</span><span class="en">Rank</span></label><input type="text" id="q24"></div>
+        <div class="field"><label><span class="ar">من – إلى</span><span class="en">From – To</span></label><input type="text" id="q25"></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 5 -->
+  <div class="card" data-step="5">
+    <div class="card-header"><div class="card-header-icon">💼</div><h2><span class="ar">التاريخ الوظيفي – آخر ١٠ سنوات</span><span class="en">Employment History – Last 10 Years</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">اسم صاحب العمل</span><span class="en">Employer Name</span></label><input type="text" id="q26"></div>
+        <div class="field"><label><span class="ar">المسمى الوظيفي</span><span class="en">Job Title</span></label><input type="text" id="q27"></div>
+        <div class="field"><label><span class="ar">العنوان</span><span class="en">Address</span></label><input type="text" id="q28"></div>
+        <div class="field"><label><span class="ar">من – إلى</span><span class="en">From – To</span></label><input type="text" id="q29"></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 6 -->
+  <div class="card" data-step="6">
+    <div class="card-header"><div class="card-header-icon">✈️</div><h2><span class="ar">سجل السفر – آخر ٥ سنوات</span><span class="en">Travel History – Last 5 Years</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">هل سافرت إلى بلد آخر؟</span><span class="en">Have you traveled to another country?</span> <span class="req">*</span></label><div class="radio-group" data-field="q30"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 7 -->
+  <div class="card" data-step="7">
+    <div class="card-header"><div class="card-header-icon">👨‍👩‍👧</div><h2><span class="ar">معلومات الوالدين</span><span class="en">Parents Information</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">اسم الأب</span><span class="en">Father's Name</span> <span class="req">*</span></label><input type="text" id="q31"></div>
+        <div class="field"><label><span class="ar">تاريخ ميلاد الأب</span><span class="en">Father's Date of Birth</span></label><input type="text" id="q32" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">بلد ميلاد الأب</span><span class="en">Father's Country of Birth</span></label><input type="text" id="q33"></div>
+        <div class="field"><label><span class="ar">تاريخ وفاة الأب</span><span class="en">Father's Date of Death</span></label><input type="text" id="q34" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">عمل الأب الحالي</span><span class="en">Father's Current Occupation</span></label><input type="text" id="q35"></div>
+        <div class="field"><label><span class="ar">عنوان الأب الحالي</span><span class="en">Father's Current Address</span></label><input type="text" id="q36"></div>
+        <div class="field"><label><span class="ar">اسم الأم</span><span class="en">Mother's Name</span> <span class="req">*</span></label><input type="text" id="q37"></div>
+        <div class="field"><label><span class="ar">تاريخ ميلاد الأم</span><span class="en">Mother's Date of Birth</span></label><input type="text" id="q38" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">بلد ميلاد الأم</span><span class="en">Mother's Country of Birth</span></label><input type="text" id="q39"></div>
+        <div class="field"><label><span class="ar">تاريخ وفاة الأم</span><span class="en">Mother's Date of Death</span></label><input type="text" id="q40" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">عمل الأم الحالي</span><span class="en">Mother's Current Occupation</span></label><input type="text" id="q41"></div>
+        <div class="field"><label><span class="ar">عنوان الأم الحالي</span><span class="en">Mother's Current Address</span></label><input type="text" id="q42"></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 8 -->
+  <div class="card" data-step="8">
+    <div class="card-header"><div class="card-header-icon">💍</div><h2><span class="ar">الحالة الاجتماعية والأبناء</span><span class="en">Marital Status & Children</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">الحالة الاجتماعية</span><span class="en">Marital Status</span> <span class="req">*</span></label><div class="radio-group" data-field="q43"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">الاسم الكامل للزوج/ة الحالي</span><span class="en">Current Spouse Full Name</span></label><input type="text" id="q44"></div>
+        <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="q45" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">تاريخ الزواج</span><span class="en">Marriage Date</span></label><input type="text" id="q46" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">محافظة الميلاد</span><span class="en">Birth Governorate</span></label><input type="text" id="q47"></div>
+        <div class="field"><label><span class="ar">العمل الحالي</span><span class="en">Current Occupation</span></label><input type="text" id="q48"></div>
+        <div class="field"><label><span class="ar">اسم الزوج/ة السابق</span><span class="en">Previous Spouse Full Name</span></label><input type="text" id="q49"></div>
+        <div class="field"><label><span class="ar">تاريخ الميلاد</span><span class="en">Date of Birth</span></label><input type="text" id="q50" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">تاريخ الزواج</span><span class="en">Marriage Date</span></label><input type="text" id="q51" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">تاريخ الطلاق</span><span class="en">Divorce Date</span></label><input type="text" id="q52" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">محافظة الميلاد</span><span class="en">Birth Governorate</span></label><input type="text" id="q53"></div>
+        <div class="field"><label><span class="ar">العمل الحالي</span><span class="en">Current Occupation</span></label><input type="text" id="q54"></div>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 9 -->
+  <div class="card" data-step="9">
+    <div class="card-header"><div class="card-header-icon">📋</div><h2><span class="ar">سجل التأشيرات</span><span class="en">Visa History</span></h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label><span class="ar">هل تم رفضك في أي سفارة؟</span><span class="en">Have you been refused a visa by any country?</span> <span class="req">*</span></label><div class="radio-group" data-field="q55"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">اسم البلد والسبب</span><span class="en">Country name and reason</span></label><textarea id="q56"></textarea></div>
+        <div class="field"><label><span class="ar">هل تقدمت على تأشيرة كندا قبل ذلك؟</span><span class="en">Have you previously applied for a Canadian visa?</span> <span class="req">*</span></label><div class="radio-group" data-field="q57"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+        <div class="field"><label><span class="ar">تاريخ التقديم</span><span class="en">Application Date</span></label><input type="text" id="q58" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label><span class="ar">النتيجة</span><span class="en">Result</span></label><input type="text" id="q59"></div>
+      </div>
+      <div class="divider"></div>
+      <div style="text-align:center">
+        <button class="btn btn-submit" id="submitBtn" onclick="submitForm()">
+          <span id="submitText">📨 <span class="ar">إرسال الطلب</span><span class="en">Submit Application</span></span>
+        </button>
+        <p class="hint" style="margin-top:12px"><span class="ar">سيتم إرسال بياناتك بصيغة Word إلى المسؤول فور الإرسال</span><span class="en">Your data will be sent as a Word document to the administrator upon submission</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns" id="navBtns">
+    <button class="btn btn-secondary" id="btnPrev" onclick="prevStep()" style="display:none">← <span class="ar">السابق</span><span class="en">Previous</span></button>
+    <div></div>
+    <button class="btn btn-primary" id="btnNext" onclick="nextStep()"><span class="ar">التالي</span><span class="en">Next</span> →</button>
+  </div>
+</main>
+<div class="overlay" id="successOverlay">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <h3><span class="ar">تم إرسال طلبك بنجاح!</span><span class="en">Application Submitted!</span></h3>
+    <p><span class="ar">تلقى المسؤول بياناتك كاملةً في ملف Word منظم.<br>سيتم التواصل معك قريباً.</span><span class="en">The administrator has received your data in a formatted Word file.<br>You will be contacted soon.</span></p>
+    <button class="modal-close" onclick="location.reload()"><span class="ar">إغلاق</span><span class="en">Close</span></button>
+  </div>
+</div>
+<script>
+const BACKEND = "https://visa-form-backend.vercel.app";
+const STEPS_AR = ["المعلومات الشخصية","الإقامة في دول أخرى – آخر ٥ سنوات","التعليم","الخدمة العسكرية","التاريخ الوظيفي – آخر ١٠ سنوات","سجل السفر – آخر ٥ سنوات","معلومات الوالدين","الحالة الاجتماعية والأبناء","سجل التأشيرات"];
+const STEPS_EN = ["Personal Information","Residence in Other Countries – Last 5 Years","Education","Military Service","Employment History – Last 10 Years","Travel History – Last 5 Years","Parents Information","Marital Status & Children","Visa History"];
+let currentLang = 'ar', currentStep = 1;
+
+function toggleLang(){
+  currentLang = currentLang==='ar'?'en':'ar';
+  const body = document.getElementById('bodyRoot');
+  if(currentLang==='en'){document.getElementById('htmlRoot').setAttribute('lang','en');document.getElementById('htmlRoot').setAttribute('dir','ltr');body.classList.add('ltr');}
+  else{document.getElementById('htmlRoot').setAttribute('lang','ar');document.getElementById('htmlRoot').setAttribute('dir','rtl');body.classList.remove('ltr');}
+  buildTabs(); updateProgress();
+}
+function buildTabs(){
+  const labels = currentLang==='ar'?STEPS_AR:STEPS_EN;
+  document.getElementById('progressSteps').innerHTML = labels.map((s,i)=>
+    `<div class="step-tab ${i===0?'active':''}" id="tab${i+1}" onclick="goToStep(${i+1})"><div class="step-num">${i+1}</div>${s}</div>`).join('');
+}
+function updateProgress(){
+  const total = STEPS_AR.length;
+  document.getElementById('progressFill').style.width=((currentStep-1)/(total-1)*100)+'%';
+  for(let i=1;i<=total;i++){
+    const tab=document.getElementById('tab'+i);
+    if(!tab)continue;
+    tab.className='step-tab'+(i===currentStep?' active':i<currentStep?' done':'');
+    tab.querySelector('.step-num').textContent=i<currentStep?'✓':i;
+  }
+  document.getElementById('btnPrev').style.display=currentStep>1?'inline-flex':'none';
+  document.getElementById('btnNext').style.display=currentStep<total?'inline-flex':'none';
+}
+function goToStep(n){
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  document.querySelector('.card[data-step="'+n+'"]').classList.add('active');
+  currentStep=n; updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextStep(){if(currentStep<STEPS_AR.length)goToStep(currentStep+1)}
+function prevStep(){if(currentStep>1)goToStep(currentStep-1)}
+
+const radioValues={};
+document.addEventListener('click',e=>{
+  const opt=e.target.closest('.radio-opt');
+  if(!opt)return;
+  const group=opt.closest('.radio-group');
+  if(!group)return;
+  group.querySelectorAll('.radio-opt').forEach(o=>o.classList.remove('selected'));
+  opt.classList.add('selected');
+  radioValues[group.dataset.field]=opt.querySelector('input').value;
+});
+
+const v=id=>{const el=document.getElementById(id);return el?el.value:radioValues[id]||'';};
+function collectForm(){
+  const rf = f => radioValues[f]||'';
+  const data = {};
+  document.querySelectorAll('[id^="q"]').forEach(el=>{
+    data[el.id] = el.tagName==='INPUT'||el.tagName==='SELECT'||el.tagName==='TEXTAREA' ? el.value : '';
+  });
+  document.querySelectorAll('.radio-group[data-field]').forEach(g=>{
+    data[g.dataset.field] = radioValues[g.dataset.field]||'';
+  });
+  return data;
+}
+
+async function submitForm(){
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  try{
+    const res=await fetch(BACKEND+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(collectForm())});
+    const json=await res.json();
+    if(json.success){document.getElementById('successOverlay').classList.add('show');}
+    else{alert((currentLang==='ar'?'خطأ: ':'Error: ')+json.message);}
+  }catch(err){
+    alert(currentLang==='ar'?'تعذر الاتصال بالخادم.':'Could not connect to server.');
+  }finally{btn.disabled=false;}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{buildTabs();updateProgress();});
+</script>
+</body>
+</html>
