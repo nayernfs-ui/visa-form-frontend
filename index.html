@@ -202,6 +202,20 @@ body.ltr span.en,body.ltr label.en{display:inline}
     <div class="card-header"><div class="card-header-icon">🏠</div><h2><span class="ar">الإقامة في دول أخرى – آخر ٥ سنوات</span><span class="en">Residence in Other Countries – Last 5 Years</span></h2></div>
     <div class="card-body">
       <div class="field" style="margin-bottom:16px"><label><span class="ar">خلال الخمس سنوات الماضية هل أقمت في بلد آخر غير بلد إقامتك الحالي أكثر من 6 شهور؟</span><span class="en">In the past five years, have you lived in a country other than your current country of residence for more than 6 months?</span> <span class="req">*</span></label><div class="radio-group" data-field="hadOtherResidency" data-toggle="residencyList"><label class="radio-opt"><input type="radio" value="نعم"> <span class="ar">نعم</span><span class="en">Yes</span></label><label class="radio-opt"><input type="radio" value="لا"> <span class="ar">لا</span><span class="en">No</span></label></div></div>
+      <div class="divider" style="margin:16px 0"></div>
+      <div class="field-grid fg2" style="margin-bottom:16px">
+        <div class="field"><label><span class="ar">تاريخ بدء الإقامة في البلد الحالي</span><span class="en">Date of Start of Residence in Current Country</span> <span class="req">*</span></label>
+          <div style="display:flex;gap:6px">
+            <input type="number" id="currentResDay" placeholder-ar="اليوم" placeholder-en="Day" min="1" max="31" style="width:70px;text-align:center">
+            <select id="currentResMonth" style="flex:1">
+              <option value=""><span class="ar">الشهر</span></option>
+              <option>يناير</option><option>فبراير</option><option>مارس</option><option>أبريل</option><option>مايو</option><option>يونيو</option><option>يوليو</option><option>أغسطس</option><option>سبتمبر</option><option>أكتوبر</option><option>نوفمبر</option><option>ديسمبر</option>
+            </select>
+            <input type="number" id="currentResYear" placeholder-ar="السنة" placeholder-en="Year" min="1900" max="2100" style="width:90px;text-align:center">
+          </div>
+        </div>
+      </div>
+      <div class="divider" style="margin:16px 0"></div>
       <div class="conditional" id="residencyList">
         <div id="residencyContainer"></div>
         <button class="btn-add" onclick="addResidency()">＋ <span class="ar">إضافة بلد</span><span class="en">Add Country</span></button>
